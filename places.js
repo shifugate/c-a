@@ -33,17 +33,17 @@ window.onload = () => {
 function staticLoadPlaces() {
     return [
         {
-            name: "Your place name",
+            name: "Casa Maurício",
             location: {
-                lat: 0, // add here latitude if using static data
-                lng: 0, // add here longitude if using static data
+                lat: 41.495982, // add here latitude if using static data
+                lng: -8.336398, // add here longitude if using static data
             }
         },
         {
-            name: 'Another place name',
+            name: 'Casa Rolão',
             location: {
-                lat: 0,
-                lng: 0,
+                lat: 41.550441,
+                lng: -8.4210637,
             }
         }
     ];
