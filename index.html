@@ -36,34 +36,55 @@
 			renderer="logarithmicDepthBuffer: true;"
 			embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
 			<a-assets>
-				<video id="ca-video" loop="true" src="video.mp4"></video>
+				<video id="https://arjs-cors-proxy.herokuapp.com/ca-video" preload="auto" loop="true" src="video.mp4" response-type="arraybuffer"></video>
 			</a-assets>
 
 			<!-- use rawgithack to retrieve the correct url for nft marker (see 'trex' below) -->
 			<a-nft
 				type='nft' url='https://arjs-cors-proxy.herokuapp.com/https://shifugate.github.io/c-a/assets/camarker'
-				smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5'>
+				smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5' vidhandler>
 				<!--<a-entity
 					gltf-model='https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf'
 					scale="5 5 5"
 					position="100 100 0"
 					>
 				</a-entity>-->
-				<a-video src="#ca-video" width="16" height="9" position="0 0 -20" vidhandler></a-video>
+				<a-video src="#ca-video" width="300" height="175" position="50 150 -100"></a-video>
 			</a-nft>
 			<a-entity camera></a-entity>
 		</a-scene>
 	</body>
 	<script>
 		AFRAME.registerComponent('vidhandler', {
-			tick: function () {
+			init: function () {
+				var marker = this.el;
+				
+				this.vid = document.querySelector('#ca-video');
+				
+				marker.addEventListener(
+					"markerFound",
+					function () {
+						this.vid.play();
+					}.bind(this);
+				);
+				
+				marker.addEventListener(
+					"markerLost",
+					function () {
+						this.vid.pause();
+						this.vid.currTime = 0;
+					}.bind(this);
+				);
+			}
+			/*tick: function () {
+				
 				//var entity = document.querySelector('[video]');
 				if (document.querySelector('a-video').object3D.visible == true) {
 					document.querySelector("#ca-video").play();
 				} else {
 					document.querySelector("#ca-video").pause();
 				}
-			}
+			}*/
 		});
 	</script>
 </html>
