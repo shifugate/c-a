@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+	<meta name="apple-mobile-web-app-capable" content="yes">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 
 	<style>
@@ -36,7 +37,7 @@
 			renderer="logarithmicDepthBuffer: true;"
 			embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
 			<a-assets>
-				<video id="ca-video" preload="auto" loop="true" src="https://arjs-cors-proxy.herokuapp.com/https://shifugate.github.io/c-a/video.mp4" response-type="arraybuffer"></video>
+				<video id="ca-video"  crossorigin="anonymous" preload autoplay loop playsinline webkit-playsinline src="https://arjs-cors-proxy.herokuapp.com/https://shifugate.github.io/c-a/video.mp4"></video>
 			</a-assets>
 
 			<a-nft
