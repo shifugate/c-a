@@ -11,7 +11,7 @@
   </head>  
   <body>
 
-    <a-scene webxr="optionalFeatures: hit-test;">
+    <a-scene webxr="optionalFeatures: hit-test;" vr-mode-ui="enabled: false">
       <a-assets timeout="30000">
         <video id="ca-video" muted preload loop playsinline src="video.mp4"></video>
       </a-assets>
@@ -37,7 +37,7 @@
 
     <div id="text">
       <p>
-        <a href="https://developers.google.com/ar/discover/supported-devices">ARCore-compatible</a>
+        <a id="myEnterARButton" href="#"></a>
       </p>
     </div>
   </body>
@@ -81,6 +81,9 @@
 		window.addEventListener('click', function () {
 		  var preload = document.querySelector('#ca-video');
 		  preload.play();
+		 
+		  var vrMode = document.querySelector('#myEnterARButton');
+		  vrMode.click();
 		});
 	</script>
 </html>
