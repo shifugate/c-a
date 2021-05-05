@@ -20,7 +20,7 @@
       
       <a-entity rotation="0 0 0">
 		<a-entity scale="1 1 1">
-			<a-video src="#ca-video" width="512" height="288" position="0 10 -1000" vidhandler></a-video>
+			<a-video src="#ca-video" width="512" height="288" position="0 10 -500" vidhandler></a-video>
 		</a-entity>
 	  </a-entity>
     </a-scene>
@@ -54,6 +54,19 @@
 				);
 			}
 		});*/
+		
+		AFRAME.registerComponent('vidhandler', {
+		  init: function () {
+			this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+			if (this.el.sceneEl.is('ar-mode')) {
+			  this.el.setAttribute('visible', false);
+			}
+			});
+			this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+			this.el.setAttribute('visible', true);
+			});
+		  }
+		})
 		
 		window.addEventListener('click', function () {
 		  var preload = document.querySelector('#ca-video');
