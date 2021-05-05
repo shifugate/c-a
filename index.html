@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link rel="stylesheet" href="/style.css">
-    
+	
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
@@ -18,10 +16,10 @@
         <video id="ca-video" muted preload loop playsinline src="video.mp4"></video>
       </a-assets>
       
-      <a-camera position="0 1.2 0"></a-camera>
+      <a-camera position="0 10 0"></a-camera>
       
-      <a-entity rotation="90 0 0">
-		<a-entity scale="1 -1 1">
+      <a-entity rotation="0 0 0">
+		<a-entity scale="1 1 1">
 			<a-video src="#ca-video" width="512" height="288" position="0 100 -10"></a-video>
 		</a-entity>
 	  </a-entity>
@@ -29,14 +27,8 @@
 
     <div id="text">
       <p>
-        This requires browser support for WebXR's AR mode, for example an
         <a href="https://developers.google.com/ar/discover/supported-devices">ARCore-compatible</a>
       </p>
     </div>
-
-    <!-- include the Glitch button to show what the webpage is about and
-          to make it easier for folks to view source and remix -->
-    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-    <script src="https://button.glitch.me/button.js"></script>
   </body>
 </html>
