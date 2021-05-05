@@ -20,7 +20,7 @@
       
       <a-entity rotation="0 0 0">
 		<a-entity scale="1 1 1">
-			<a-video src="#ca-video" width="512" height="288" position="0 100 -100"></a-video>
+			<a-video src="#ca-video" width="512" height="288" position="0 10 0" vidhandler></a-video>
 		</a-entity>
 	  </a-entity>
     </a-scene>
@@ -31,4 +31,33 @@
       </p>
     </div>
   </body>
+  <script>
+		/*AFRAME.registerComponent('vidhandler', {
+			init: function () {
+				var marker = this.el;
+				
+				this.vid = document.querySelector('#ca-video');
+				
+				marker.addEventListener(
+					"markerFound",
+					function () {
+						this.vid.play();
+					}.bind(this)
+				);
+				
+				marker.addEventListener(
+					"markerLost",
+					function () {
+						this.vid.pause();
+						this.vid.currTime = 0;
+					}.bind(this)
+				);
+			}
+		});*/
+		
+		window.addEventListener('click', function () {
+		  var preload = document.querySelector('#ca-video');
+		  preload.play();
+		});
+	</script>
 </html>
