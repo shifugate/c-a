@@ -11,7 +11,7 @@
   </head>  
   <body>
 
-    <a-scene webxr="optionalFeatures: hit-test;" vr-mode-ui="enterVRButton: #startButton">
+    <a-scene webxr="optionalFeatures: hit-test;" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
       <a-assets timeout="30000">
         <video id="ca-video" muted preload loop playsinline src="video.mp4"></video>
       </a-assets>
@@ -34,8 +34,8 @@
 		></a-plane>
 	  </a-entity>
     </a-scene>
-	
-	<button id="startButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>
+	<a id="myEnterVRButton" href="#"></a>
+	<button id="myEnterARButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>
   </body>
   <script>
 		/*AFRAME.registerComponent('vidhandler', {
