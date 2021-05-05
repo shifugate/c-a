@@ -8,7 +8,40 @@
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
-	<script>
+  </head>  
+  <body>
+
+    <a-scene webxr="optionalFeatures: hit-test;">
+      <a-assets timeout="30000">
+        <video id="ca-video" muted preload loop playsinline src="video.mp4"></video>
+      </a-assets>
+      
+      <a-camera position="0 10 10"></a-camera>
+      
+      <a-entity rotation="0 0 0">
+		<a-entity scale="1 1 1">
+			<a-video src="#ca-video" width="512" height="288" position="0 10 -500" vidhandler></a-video>
+		</a-entity>
+	  </a-entity>
+	  
+	  <a-entity ar-hit-test="doHitTest:false" visible="false">
+		<a-plane
+		 rotation="-90 0 0"
+		 width="0.2"
+		 height="0.2"
+		 src="https://shifugate.github.io/c-a/arrow.png"
+		 material="transparent:true;"
+		></a-plane>
+	  </a-entity>
+    </a-scene>
+
+    <div id="text">
+      <p>
+        <a href="https://developers.google.com/ar/discover/supported-devices">ARCore-compatible</a>
+      </p>
+    </div>
+  </body>
+  <script>
 		/*AFRAME.registerComponent('vidhandler', {
 			init: function () {
 				var marker = this.el;
@@ -50,37 +83,4 @@
 		  preload.play();
 		});
 	</script>
-  </head>  
-  <body>
-
-    <a-scene webxr="optionalFeatures: hit-test;">
-      <a-assets timeout="30000">
-        <video id="ca-video" muted preload loop playsinline src="video.mp4"></video>
-      </a-assets>
-      
-      <a-camera position="0 10 10"></a-camera>
-      
-      <a-entity rotation="0 0 0">
-		<a-entity scale="1 1 1">
-			<a-video src="#ca-video" width="512" height="288" position="0 10 -500" vidhandler></a-video>
-		</a-entity>
-	  </a-entity>
-	  
-	  <a-entity ar-hit-test="doHitTest:false" visible="false">
-		<a-plane
-		 rotation="-90 0 0"
-		 width="0.2"
-		 height="0.2"
-		 src="arrow.png"
-		 material="transparent:true;"
-		></a-plane>
-	  </a-entity>
-    </a-scene>
-
-    <div id="text">
-      <p>
-        <a href="https://developers.google.com/ar/discover/supported-devices">ARCore-compatible</a>
-      </p>
-    </div>
-  </body>
 </html>
