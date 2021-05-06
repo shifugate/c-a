@@ -135,7 +135,7 @@
 	<!--<div id="overlay">
       <button id="add-ar"></button>
     </div>-->
-    <a-scene webxr="requiredFeatures: hit-test,local-floor;optionalFeatures: dom-overlay; overlayElement: #overlay" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
+    <a-scene webxr="requiredFeatures: hit-test,local-floor;optionalFeatures: dom-overlay; overlayElement: #overlay"><!-- vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">-->
 		<a-assets timeout="30000">
 			<video id="ca-video" muted preload loop playsinline src="video.mp4" response-type="arraybuffer"></video>
 			<a-asset-item id="reticle" src="reticle.gltf" response-type="arraybuffer"></a-asset-item>
@@ -147,8 +147,8 @@
 	    <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" ar-hit-test></a-entity>
 		<a-entity add-button="element: #add-ar"></a-entity>
     </a-scene>
-	<a id="myEnterVRButton" href="#"></a>
-	<button id="myEnterARButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>
+	<!--<a id="myEnterVRButton" href="#"></a>
+	<button id="myEnterARButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>-->
   </body>
   <script>
 		window.addEventListener('click', function () {
