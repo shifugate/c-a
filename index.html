@@ -20,7 +20,7 @@
       
       <a-entity rotation="0 0 0">
 		<a-entity scale="1 1 1">
-			<a-video src="#ca-video" width="512" height="288" position="0 10 -500" vidhandler></a-video>
+			<a-video src="#ca-video" width="512" height="288" position="0 10 -500" style="visibility:hidden" vidhandler></a-video>
 		</a-entity>
 	  </a-entity>
 	  
@@ -56,8 +56,21 @@
 				this.el.setAttribute('visible', true);
 				this.vid.style.visibility='hidden';
 			});
-		  }
-		})
+		  },
+		  tick: (function () {
+			const position = new THREE.Vector3();
+			const rotation = new THREE.Quaternion();
+			const euler = new THREE.Euler();
+			const matrix = new THREE.Matrix4();
+			return function () {
+			  this.el.object3D.updateMatrixWorld();
+			  position.setFromMatrixPosition(this.el.object3D.matrixWorld); // Vector3
+			  rotation.setFromRotationMatrix(matrix.extractRotation(this.el.object3D.matrixWorld));      
+			  console.log("Position: " + position.x + " " + position.y + " " + position.z);
+			  console.log("Rotation: " + rotation.x + " " + rotation.y + " " + rotation.z);
+			 }
+		   });
+		});
 		
 		window.addEventListener('click', function () {
 		  var preload = document.querySelector('#ca-video');
