@@ -74,7 +74,9 @@
 							position.setFromMatrixPosition(inputMat);
 							this.el.setAttribute('position', position);
 							
-							document.getElementById('cavideo').setAttribute('position', position);
+							var entity = document.getElementById('cavideo');
+							entity.setAttribute('position', position);
+							entity.setAttribute("look-at", "#cacamera");
 						}
 					}
 				}
@@ -91,7 +93,7 @@
 			<a-asset-item id="spinosaurus" src="https://cdn.glitch.com/324a5290-5aa7-4efc-92d6-ae0736433b12%2Fspinosaurus.glb" response-type="arraybuffer"></a-asset-item>
 		</a-assets>
 
-		<a-camera position="0 10 10" track-camera></a-camera>
+		<a-camera id="cacamera" position="0 10 10" track-camera></a-camera>
 		
 		<!--<a-entity id="cavideo" position="-1 0 -3" scale="0.5 0.5 0.5">
 			<a-entity position="0 2.15 0" rotation="0 55 0"
