@@ -70,7 +70,7 @@
   </head>  
   <body>
 
-    <a-scene webxr="requiredFeatures: hit-test,local-floor;" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
+    <a-scene ar="worldSensing:true" webxr="requiredFeatures: hit-test,local-floor;" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
       <a-assets timeout="30000">
         <video id="ca-video" muted preload loop playsinline src="video.mp4" response-type="arraybuffer"></video>
 		<a-asset-item id="reticle" src="reticle.gltf" response-type="arraybuffer"></a-asset-item>
