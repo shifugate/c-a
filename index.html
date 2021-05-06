@@ -39,7 +39,7 @@
 					session.addEventListener('select', function () {
 						let position = element.getAttribute('position');
 
-						document.getElementById('dino').setAttribute('position', position);
+						document.getElementById('cavideo').setAttribute('position', position);
 					});
 
 					session.requestReferenceSpace('viewer').then((space) => {
@@ -74,7 +74,7 @@
 							position.setFromMatrixPosition(inputMat);
 							this.el.setAttribute('position', position);
 							
-							document.getElementById('dino').setAttribute('position', position);
+							document.getElementById('cavideo').setAttribute('position', position);
 						}
 					}
 				}
@@ -85,26 +85,16 @@
   <body>
 
     <a-scene webxr="requiredFeatures: hit-test,local-floor;" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
-      <a-assets timeout="30000">
-        <video id="ca-video" muted preload loop playsinline src="video.mp4" response-type="arraybuffer"></video>
-		<a-asset-item id="reticle" src="reticle.gltf" response-type="arraybuffer"></a-asset-item>
-		<a-asset-item id="spinosaurus" src="https://cdn.glitch.com/324a5290-5aa7-4efc-92d6-ae0736433b12%2Fspinosaurus.glb" response-type="arraybuffer"></a-asset-item>
-      </a-assets>
-      
-      <a-camera position="0 10 10" track-camera></a-camera>
-      
-      <a-entity id="cavideo" position="0 10 -500" rotation="0 0 0" scale="1 1 1">
+		<a-assets timeout="30000">
+			<video id="ca-video" muted preload loop playsinline src="video.mp4" response-type="arraybuffer"></video>
+			<a-asset-item id="reticle" src="reticle.gltf" response-type="arraybuffer"></a-asset-item>
+		</a-assets>
+
+		<a-camera position="0 10 10" track-camera></a-camera>
+
+		<a-entity id="cavideo" position="0 10 -500" rotation="0 0 0" scale="1 1 1">
 			<a-video src="#ca-video" width="512" height="288" vidhandler></a-video>
-	  </a-entity>
-	  
-		<a-entity id="dino" position="-1 0 -3" scale="0.5 0.5 0.5">
-			<a-entity position="0 2.15 0" rotation="0 55 0"
-					  gltf-model="#spinosaurus"
-					  animation-mixer
-					  shadow="cast: true; receive: false"></a-entity>
 		</a-entity>
-	  
-	  <!--<a-video id="cavideo" src="#ca-video" width="512" height="288" position="0 10 -500" style="visibility:hidden" vidhandler></a-video>-->
 	  
 	  <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" ar-hit-test></a-entity>
     </a-scene>
@@ -112,27 +102,6 @@
 	<button id="myEnterARButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>
   </body>
   <script>
-		/*AFRAME.registerComponent('vidhandler', {
-		  init: function () {
-			//this.vid = document.querySelector('#ca-video');
-			//this.vid.style.visibility='hidden';
-			
-			this.el.sceneEl.addEventListener('enter-vr', (ev) => {
-				if (this.el.sceneEl.is('ar-mode')) {
-					this.el.setAttribute('visible', false);
-					//this.vid.style.visibility='visible';
-					
-					//var preload = document.querySelector('#ca-video');
-			  		//preload.play();
-				}
-			});
-			this.el.sceneEl.addEventListener('exit-vr', (ev) => {
-				this.el.setAttribute('visible', true);
-				//this.vid.style.visibility='hidden';
-			});
-		  }
-		});*/
-		
 		window.addEventListener('click', function () {
 		  var preload = document.querySelector('#ca-video');
 		  preload.play();
