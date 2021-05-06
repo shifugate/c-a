@@ -8,6 +8,19 @@
     <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
 	<script>
+		AFRAME.registerComponent('vidhandler', {
+		  init: function () {
+			this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+				if (this.el.sceneEl.is('ar-mode')) {
+					this.el.setAttribute('visible', false);
+				}
+			});
+			this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+				this.el.setAttribute('visible', true);
+			});
+		  }
+		});
+		
 		AFRAME.registerComponent('ar-hit-test', {
 			init: function () {
 				this.xrHitTestSource = null;
@@ -89,26 +102,26 @@
 	<button id="myEnterARButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>
   </body>
   <script>
-		AFRAME.registerComponent('vidhandler', {
+		/*AFRAME.registerComponent('vidhandler', {
 		  init: function () {
-			this.vid = document.querySelector('#ca-video');
-			this.vid.style.visibility='hidden';
+			//this.vid = document.querySelector('#ca-video');
+			//this.vid.style.visibility='hidden';
 			
 			this.el.sceneEl.addEventListener('enter-vr', (ev) => {
 				if (this.el.sceneEl.is('ar-mode')) {
 					this.el.setAttribute('visible', false);
-					this.vid.style.visibility='visible';
+					//this.vid.style.visibility='visible';
 					
-					var preload = document.querySelector('#ca-video');
-			  		preload.play();
+					//var preload = document.querySelector('#ca-video');
+			  		//preload.play();
 				}
 			});
 			this.el.sceneEl.addEventListener('exit-vr', (ev) => {
 				this.el.setAttribute('visible', true);
-				this.vid.style.visibility='hidden';
+				//this.vid.style.visibility='hidden';
 			});
 		  }
-		});
+		});*/
 		
 		window.addEventListener('click', function () {
 		  var preload = document.querySelector('#ca-video');
