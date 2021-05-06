@@ -31,27 +31,6 @@
 			  }
 			})()
 		});
-		
-		AFRAME.registerComponent('vidhandler', {
-		  init: function () {
-			this.vid = document.querySelector('#ca-video');
-			this.vid.style.visibility='hidden';
-			
-			this.el.sceneEl.addEventListener('enter-vr', (ev) => {
-				if (this.el.sceneEl.is('ar-mode')) {
-					this.el.setAttribute('visible', false);
-					this.vid.style.visibility='visible';
-					
-					var preload = document.querySelector('#ca-video');
-			  		preload.play();
-				}
-			});
-			this.el.sceneEl.addEventListener('exit-vr', (ev) => {
-				this.el.setAttribute('visible', true);
-				this.vid.style.visibility='hidden';
-			});
-		  }
-		});
 	</script>
   </head>  
   <body>
@@ -83,6 +62,27 @@
 	<button id="myEnterARButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>
   </body>
   <script>
+		AFRAME.registerComponent('vidhandler', {
+		  init: function () {
+			this.vid = document.querySelector('#ca-video');
+			this.vid.style.visibility='hidden';
+			
+			this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+				if (this.el.sceneEl.is('ar-mode')) {
+					this.el.setAttribute('visible', false);
+					this.vid.style.visibility='visible';
+					
+					var preload = document.querySelector('#ca-video');
+			  		preload.play();
+				}
+			});
+			this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+				this.el.setAttribute('visible', true);
+				this.vid.style.visibility='hidden';
+			});
+		  }
+		});
+		
 		window.addEventListener('click', function () {
 		  var preload = document.querySelector('#ca-video');
 		  preload.play();
