@@ -145,10 +145,8 @@
 
 		<a-camera position="0 10 10" track-camera></a-camera>
 		
-		<!--<a-entity look-at="[track-camera]" id="cavideo" position="0 0 0">
-			<a-plane material="shader: transparent-video; src: #ca-video" width="512" height="288" position="0 0 -15"></a-plane>
-		</a-entity>-->
-		<a-entity look-at="[track-camera]" material="shader: transparent-video; src: #ca-video" geometry="primitive: plane" width="512" height="288" scale="7.5 5 1" position="0 0 -15"></a-entity>
+		<a-entity id="cavideo" look-at="[track-camera]" material="shader: transparent-video; src: #ca-video" geometry="primitive: plane" scale="15 5 1">
+		</a-entity>
 	    <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" ar-hit-test></a-entity>
 		<a-entity add-button="element: #add-ar"></a-entity>
     </a-scene>
