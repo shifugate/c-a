@@ -146,7 +146,7 @@
 		<a-camera position="0 10 10" track-camera></a-camera>
 		
 		<a-entity id="cavideo" look-at="[track-camera]" material="shader: transparent-video; src: #ca-video" geometry="primitive: plane" scale="15 10 10">
-			<a-box color="tomato" depth="2" height="4" width="0.5"></a-box>
+			<a-entity id="box" geometry="primitive: box" material="color: red"></a-entity>
 		</a-entity>
 	    <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" ar-hit-test></a-entity>
 		<a-entity add-button="element: #add-ar"></a-entity>
