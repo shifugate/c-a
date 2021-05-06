@@ -5,9 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	
-    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
 	<script>
 		AFRAME.registerComponent('ar-hit-test', {
 			init: function () {
@@ -70,7 +68,9 @@
   </head>  
   <body>
 
-    <a-scene ar="worldSensing:true" webxr="requiredFeatures: hit-test,local-floor;" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
+    <a-scene webxr="requiredFeatures: hit-test,local-floor;
+                optionalFeatures: dom-overlay,unbounded;
+                overlayElement: #overlay;" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
       <a-assets timeout="30000">
         <video id="ca-video" muted preload loop playsinline src="video.mp4" response-type="arraybuffer"></video>
 		<a-asset-item id="reticle" src="reticle.gltf" response-type="arraybuffer"></a-asset-item>
