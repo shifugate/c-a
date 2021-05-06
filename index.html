@@ -24,11 +24,10 @@
           top: 0px;
 		  width: 100%;
 		  height: 100%;
-          background: rgba(127,127,127,0.25);
+          background: rgba(127,127,127,0);
           color: white;
           border: 1px solid rgba(255,255,255,0.25);
           padding: 6px 8px;
-          font-weight: bold;
       }
     </style>
 	
@@ -53,11 +52,11 @@
             element: {type: 'selector'}
         },
         init: function () {
-          this.data.element.addEventListener('click', ev => {
-              setPosition = true;
-          });
-        }
-      });
+			  this.data.element.addEventListener('click', ev => {
+				  setPosition = true;
+			  });
+			}
+		});
 		
 		AFRAME.registerComponent('ar-hit-test', {
 			init: function () {
@@ -134,7 +133,7 @@
   </head>  
   <body>
 	<div id="overlay">
-      <button id="add-ar">Exit AR</button>
+      <button id="add-ar"></button>
     </div>
     <a-scene webxr="requiredFeatures: hit-test,local-floor;optionalFeatures: dom-overlay; overlayElement: #overlay" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
 		<a-assets timeout="30000">
