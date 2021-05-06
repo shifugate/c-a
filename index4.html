@@ -2,6 +2,7 @@
 <html>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+	<script src="dist/aframe-transparent-video-shader.umd.js"></script>
 
 	<style>
 	  .arjs-loader {
@@ -36,16 +37,18 @@
 			renderer="logarithmicDepthBuffer: true;"
 			embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
 			<a-assets>
-				<video id="ca-video" muted preload loop playsinline src="video.mp4"></video>
+				<video id="ca-video" muted preload loop playsinline src="video.webm"></video>
 			</a-assets>
 			
 
 			<a-nft
 				type='nft' url='https://arjs-cors-proxy.herokuapp.com/https://shifugate.github.io/c-a/assets/camarker2'
 				smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5' vidhandler>
+				<!--<a-entity material="shader: transparent-video; src: #ca-video" geometry="primitive: plane" scale="1 1 1" rotation="0 0 0" position="0 100 -10"></a-entity>-->
 				<a-entity rotation="90 0 0">
 					<a-entity scale="1 -1 1">
-						<a-video transparent="true" src="#ca-video" width="512" height="288" position="0 100 -10"></a-video>
+						<!-- <a-video transparent="true" src="#ca-video" width="512" height="288" position="0 100 -10"></a-video>-->
+						<a-video material="shader: transparent-video; src: #ca-video" width="512" height="288" position="0 100 -10"></a-video>
 					</a-entity>
 				</a-entity>
 			</a-nft>
