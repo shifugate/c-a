@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +26,7 @@
 					session.addEventListener('select', function () {
 						let position = element.getAttribute('position');
 
-						document.getElementById('ca-video').setAttribute('position', position);
+						document.getElementById('cavideo').setAttribute('position', position);
 					});
 
 					session.requestReferenceSpace('viewer').then((space) => {
@@ -70,9 +69,7 @@
   </head>  
   <body>
 
-    <a-scene webxr="requiredFeatures: hit-test,local-floor;
-                optionalFeatures: dom-overlay,unbounded;
-                overlayElement: #overlay;" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
+    <a-scene webxr="requiredFeatures: hit-test,local-floor;" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
       <a-assets timeout="30000">
         <video id="ca-video" muted preload loop playsinline src="video.mp4" response-type="arraybuffer"></video>
 		<a-asset-item id="reticle" src="reticle.gltf" response-type="arraybuffer"></a-asset-item>
@@ -82,7 +79,7 @@
       
       <a-entity rotation="0 0 0">
 		<a-entity scale="1 1 1">
-			<a-video src="#ca-video" width="512" height="288" position="0 10 -500" style="visibility:hidden" vidhandler></a-video>
+			<a-video id="cavideo" src="#ca-video" width="512" height="288" style="visibility:hidden" vidhandler></a-video>
 		</a-entity>
 	  </a-entity>
 	  
