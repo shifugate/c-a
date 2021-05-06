@@ -126,8 +126,13 @@
 	</script>
   </head>  
   <body>
-
-    <a-scene webxr="requiredFeatures: hit-test,local-floor;" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
+	<div id="overlay">
+      <span id="greeting">
+        Hi, I'm the DOM Overlay
+      </span>
+      <button id="exit-ar">Exit AR</button>
+    </div>
+    <a-scene webxr="requiredFeatures: hit-test,local-floor;optionalFeatures: dom-overlay; overlayElement: #overlay" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
 		<a-assets timeout="30000">
 			<video id="ca-video" muted preload loop playsinline src="video.mp4" response-type="arraybuffer"></video>
 			<a-asset-item id="reticle" src="reticle.gltf" response-type="arraybuffer"></a-asset-item>
@@ -141,12 +146,6 @@
     </a-scene>
 	<a id="myEnterVRButton" href="#"></a>
 	<button id="myEnterARButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>
-	<div id="overlay">
-      <span id="greeting">
-        Hi, I'm the DOM Overlay
-      </span>
-      <button id="exit-ar">Exit AR</button>
-    </div>
   </body>
   <script>
 		window.addEventListener('click', function () {
