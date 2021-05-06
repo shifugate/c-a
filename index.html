@@ -16,7 +16,7 @@
         <video id="ca-video" muted preload loop playsinline src="video.mp4"></video>
       </a-assets>
       
-      <a-camera position="0 10 10"></a-camera>
+      <a-camera position="0 10 10" track-camera></a-camera>
       
       <a-entity rotation="0 0 0">
 		<a-entity scale="1 1 1">
@@ -56,20 +56,30 @@
 				this.el.setAttribute('visible', true);
 				this.vid.style.visibility='hidden';
 			});
-		  },
-		  tick: (function () {
-			const position = new THREE.Vector3();
-			const rotation = new THREE.Quaternion();
-			const euler = new THREE.Euler();
-			const matrix = new THREE.Matrix4();
-			return function () {
-			  this.el.object3D.updateMatrixWorld();
-			  position.setFromMatrixPosition(this.el.object3D.matrixWorld); // Vector3
-			  rotation.setFromRotationMatrix(matrix.extractRotation(this.el.object3D.matrixWorld));      
-			  console.log("Position: " + position.x + " " + position.y + " " + position.z);
-			  console.log("Rotation: " + rotation.x + " " + rotation.y + " " + rotation.z);
-			 }
-		   })()
+		  }
+		});
+		
+		AFRAME.registerComponent('track-camera', {
+			tick: (function () {
+			  const position = new THREE.Vector3();
+			  const direction = new THREE.Vector3();
+			  const rotation = new THREE.Quaternion();
+			  const euler = new THREE.Euler();
+			  const matrix = new THREE.Matrix4();
+			  
+			  return function () {
+				this.el.object3D.updateMatrixWorld();
+				position.setFromMatrixPosition(this.el.object3D.matrixWorld); // Vector3
+				rotation.setFromRotationMatrix(matrix.extractRotation(this.el.object3D.matrixWorld));
+				var e = this.el.object3D.matrixWorld.elements;
+				direction.set(e[ 8 ], e[ 9 ], e[ 10 ]).normalize();
+
+				console.log("Position: " + position.x + " " + position.y + " " + position.z);
+				console.log("Rotation: " + rotation.x + " " + rotation.y + " " + rotation.z);
+				console.log("Direction: " + direction.x + " " + direction.y + " " + direction.z);
+
+			  }
+			})()
 		});
 		
 		window.addEventListener('click', function () {
