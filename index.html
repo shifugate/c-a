@@ -77,11 +77,11 @@
       
       <a-camera position="0 10 10" track-camera></a-camera>
       
-      <a-entity rotation="0 0 0">
-		<a-entity scale="1 1 1">
-			<a-video id="cavideo" src="#ca-video" width="512" height="288" style="visibility:hidden" vidhandler></a-video>
-		</a-entity>
+      <a-entity id="cavideo" rotation="0 0 0"  scale="1 1 1">
+			<a-video src="#ca-video" width="512" height="288"  position="0 10 -500" vidhandler></a-video>
 	  </a-entity>
+	  
+	  <!--<a-video id="cavideo" src="#ca-video" width="512" height="288" position="0 10 -500" style="visibility:hidden" vidhandler></a-video>-->
 	  
 	  <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" ar-hit-test></a-entity>
     </a-scene>
