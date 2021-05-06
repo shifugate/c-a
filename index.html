@@ -39,7 +39,7 @@
 					session.addEventListener('select', function () {
 						let position = element.getAttribute('position');
 
-						document.getElementById('cavideo').setAttribute('position', position);
+						document.getElementById('dino').setAttribute('position', position);
 					});
 
 					session.requestReferenceSpace('viewer').then((space) => {
@@ -86,13 +86,21 @@
       <a-assets timeout="30000">
         <video id="ca-video" muted preload loop playsinline src="video.mp4" response-type="arraybuffer"></video>
 		<a-asset-item id="reticle" src="reticle.gltf" response-type="arraybuffer"></a-asset-item>
+		<a-asset-item id="spinosaurus" src="https://cdn.glitch.com/324a5290-5aa7-4efc-92d6-ae0736433b12%2Fspinosaurus.glb" response-type="arraybuffer"></a-asset-item>
       </a-assets>
       
       <a-camera position="0 10 10" track-camera></a-camera>
       
-      <a-entity id="cavideo" rotation="0 0 0"  scale="1 1 1">
-			<a-video src="#ca-video" width="512" height="288"  position="0 10 -500" vidhandler></a-video>
+      <a-entity id="cavideo" position="0 10 -500" rotation="0 0 0" scale="1 1 1">
+			<a-video src="#ca-video" width="512" height="288" vidhandler></a-video>
 	  </a-entity>
+	  
+		<a-entity id="dino" position="-1 0 -3" scale="0.5 0.5 0.5">
+			<a-entity position="0 2.15 0" rotation="0 55 0"
+					  gltf-model="#spinosaurus"
+					  animation-mixer
+					  shadow="cast: true; receive: false"></a-entity>
+		</a-entity>
 	  
 	  <!--<a-video id="cavideo" src="#ca-video" width="512" height="288" position="0 10 -500" style="visibility:hidden" vidhandler></a-video>-->
 	  
