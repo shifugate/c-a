@@ -8,6 +8,51 @@
     <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+	<script>
+		AFRAME.registerComponent('track-camera', {
+			tick: (function () {
+			  const position = new THREE.Vector3();
+			  const direction = new THREE.Vector3();
+			  const rotation = new THREE.Quaternion();
+			  const euler = new THREE.Euler();
+			  const matrix = new THREE.Matrix4();
+			  
+			  return function () {
+				this.el.object3D.updateMatrixWorld();
+				position.setFromMatrixPosition(this.el.object3D.matrixWorld);
+				rotation.setFromRotationMatrix(matrix.extractRotation(this.el.object3D.matrixWorld));
+				var e = this.el.object3D.matrixWorld.elements;
+				direction.set(e[ 8 ], e[ 9 ], e[ 10 ]).normalize();
+
+				console.log("Position: " + position.x + " " + position.y + " " + position.z);
+				console.log("Rotation: " + rotation.x + " " + rotation.y + " " + rotation.z);
+				console.log("Direction: " + direction.x + " " + direction.y + " " + direction.z);
+
+			  }
+			})()
+		});
+		
+		AFRAME.registerComponent('vidhandler', {
+		  init: function () {
+			this.vid = document.querySelector('#ca-video');
+			this.vid.style.visibility='hidden';
+			
+			this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+				if (this.el.sceneEl.is('ar-mode')) {
+					this.el.setAttribute('visible', false);
+					this.vid.style.visibility='visible';
+					
+					var preload = document.querySelector('#ca-video');
+			  		preload.play();
+				}
+			});
+			this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+				this.el.setAttribute('visible', true);
+				this.vid.style.visibility='hidden';
+			});
+		  }
+		});
+	</script>
   </head>  
   <body>
 
@@ -38,50 +83,6 @@
 	<button id="myEnterARButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>
   </body>
   <script>
-		AFRAME.registerComponent('vidhandler', {
-		  init: function () {
-			this.vid = document.querySelector('#ca-video');
-			this.vid.style.visibility='hidden';
-			
-			this.el.sceneEl.addEventListener('enter-vr', (ev) => {
-				if (this.el.sceneEl.is('ar-mode')) {
-					this.el.setAttribute('visible', false);
-					this.vid.style.visibility='visible';
-					
-					var preload = document.querySelector('#ca-video');
-			  		preload.play();
-				}
-			});
-			this.el.sceneEl.addEventListener('exit-vr', (ev) => {
-				this.el.setAttribute('visible', true);
-				this.vid.style.visibility='hidden';
-			});
-		  }
-		});
-		
-		AFRAME.registerComponent('track-camera', {
-			tick: (function () {
-			  const position = new THREE.Vector3();
-			  const direction = new THREE.Vector3();
-			  const rotation = new THREE.Quaternion();
-			  const euler = new THREE.Euler();
-			  const matrix = new THREE.Matrix4();
-			  
-			  return function () {
-				this.el.object3D.updateMatrixWorld();
-				position.setFromMatrixPosition(this.el.object3D.matrixWorld); // Vector3
-				rotation.setFromRotationMatrix(matrix.extractRotation(this.el.object3D.matrixWorld));
-				var e = this.el.object3D.matrixWorld.elements;
-				direction.set(e[ 8 ], e[ 9 ], e[ 10 ]).normalize();
-
-				console.log("Position: " + position.x + " " + position.y + " " + position.z);
-				console.log("Rotation: " + rotation.x + " " + rotation.y + " " + rotation.z);
-				console.log("Direction: " + direction.x + " " + direction.y + " " + direction.z);
-
-			  }
-			})()
-		});
-		
 		window.addEventListener('click', function () {
 		  var preload = document.querySelector('#ca-video');
 		  preload.play();
