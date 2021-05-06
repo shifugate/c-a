@@ -8,6 +8,8 @@
     <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
 	<script src="dist/aframe-look-at-component.min.js"></script>
+	<script src="dist/aframe-transparent-video-shader.umd.js"></script>
+</head>
 	
 	<style>
       /* By default, hide the DOM Overlay element. */
@@ -143,7 +145,7 @@
 
 		<a-camera position="0 10 10" track-camera></a-camera>
 		
-		<a-entity id="cavideo" look-at="[track-camera]" geometry="primitive: box" material="src: #ca-video" scale="3 2 2"></a-entity>
+		<a-entity id="cavideo" look-at="[track-camera]" material="shader: transparent-video; src: #ca-video" geometry="primitive: box" material="src: #ca-video" scale="3 2 2"></a-entity>
 	    <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" ar-hit-test></a-entity>
 		<a-entity add-button="element: #add-ar"></a-entity>
     </a-scene>
