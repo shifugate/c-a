@@ -8,6 +8,32 @@
     <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
 	<script src="dist/aframe-look-at-component.min.js"></script>
+	
+	<style>
+      /* By default, hide the DOM Overlay element. */
+      #overlay {
+          display: none;
+      }
+      /* Show the DOM Overlay element while active (:xr-overlay pseudoclass) */
+      #overlay:xr-overlay {
+          display: initial;
+      }
+      #greeting {
+          background-color: rgba(1, 1, 1, 0.25);
+          margin: 10px;
+      }
+      #exit-ar {
+          position: absolute;
+          right: 40px;
+          bottom: 40px;
+          background: rgba(127,127,127,0.25);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.25);
+          padding: 6px 8px;
+          font-weight: bold;
+      }
+    </style>
+	
 	<script>
 		AFRAME.registerComponent('vidhandler', {
 		  init: function () {
@@ -21,6 +47,17 @@
 			});
 		  }
 		});
+		
+		AFRAME.registerComponent('exit-ar-button', {
+        schema: {
+            element: {type: 'selector'}
+        },
+        init: function () {
+          this.data.element.addEventListener('click', ev => {
+              this.el.sceneEl.renderer.xr.getSession().end();
+          });
+        }
+      });
 		
 		AFRAME.registerComponent('ar-hit-test', {
 			init: function () {
