@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-extras@3.3.0/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+	<script src="dist/aframe-look-at-component.min.js"></script>
+	<script src="dist/aframe-transparent-video-shader.umd.js"></script>
+</head>
+	
+	<style>
+      /* By default, hide the DOM Overlay element. */
+      #overlay {
+          display: none;
+      }
+      /* Show the DOM Overlay element while active (:xr-overlay pseudoclass) */
+      #overlay:xr-overlay {
+          display: initial;
+      }
+      #add-ar {
+          position: absolute;
+          left: 0px;
+          top: 0px;
+		  width: 100%;
+		  height: 100%;
+          background: rgba(127,127,127,0);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.25);
+          padding: 6px 8px;
+      }
+    </style>
+	
+	<script>
+		var setPosition = false;
+	
+		AFRAME.registerComponent('vidhandler', {
+		  init: function () {
+			this.el.sceneEl.addEventListener('enter-vr', (ev) => {
+				if (this.el.sceneEl.is('ar-mode')) {
+					this.el.setAttribute('visible', false);
+				}
+			});
+			this.el.sceneEl.addEventListener('exit-vr', (ev) => {
+				this.el.setAttribute('visible', true);
+			});
+		  }
+		});
+		
+		AFRAME.registerComponent('add-button', {
+        schema: {
+            element: {type: 'selector'}
+        },
+        init: function () {
+			  this.data.element.addEventListener('click', ev => {
+				  setPosition = true;
+			  });
+			}
+		});
+		
+		AFRAME.registerComponent('ar-hit-test', {
+			init: function () {
+				this.xrHitTestSource = null;
+				this.viewerSpace = null;
+				this.refSpace = null;
+				
+				var el = document.querySelector("#cavideo");
+				el.setAttribute("visible",false);
+
+				this.el.sceneEl.renderer.xr.addEventListener('sessionend', (ev) => {
+					this.viewerSpace = null;
+					this.refSpace = null;
+					this.xrHitTestSource = null;
+				});
+				this.el.sceneEl.renderer.xr.addEventListener('sessionstart', (ev) => {
+					let session = this.el.sceneEl.renderer.xr.getSession();
+
+					let element = this.el;
+					session.addEventListener('select', function () {
+						let position = element.getAttribute('position');
+
+						var entity = document.getElementById('cavideo');
+						entity.setAttribute('position', position);
+					});
+
+					session.requestReferenceSpace('viewer').then((space) => {
+						this.viewerSpace = space;
+						session.requestHitTestSource({space: this.viewerSpace})
+								.then((hitTestSource) => {
+									this.xrHitTestSource = hitTestSource;
+								});
+					});
+
+					session.requestReferenceSpace('local-floor').then((space) => {
+						this.refSpace = space;
+					});
+				});
+			},
+			tick: function () {
+				if (this.el.sceneEl.is('ar-mode')) {
+					if (!this.viewerSpace) return;
+
+					let frame = this.el.sceneEl.frame;
+					let xrViewerPose = frame.getViewerPose(this.refSpace);
+
+					if (this.xrHitTestSource && xrViewerPose) {
+						let hitTestResults = frame.getHitTestResults(this.xrHitTestSource);
+						if (hitTestResults.length > 0) {
+							let pose = hitTestResults[0].getPose(this.refSpace);
+
+							let inputMat = new THREE.Matrix4();
+							inputMat.fromArray(pose.transform.matrix);
+
+							let position = new THREE.Vector3();
+							position.setFromMatrixPosition(inputMat);
+							this.el.setAttribute('position', position);
+							
+							if (setPosition) {
+								setPosition = false;
+								
+								var el = document.querySelector("#cavideo");
+								el.setAttribute("visible",true);
+								
+								var entity = document.getElementById('cavideo');
+								entity.setAttribute('position', position);
+							}
+						}
+					}
+				}
+			}
+		});
+	</script>
+  </head>  
+  <body>
+	<div id="overlay">
+      <button id="add-ar"></button>
+    </div>
+    <a-scene webxr="requiredFeatures: hit-test,local-floor;optionalFeatures: dom-overlay; overlayElement: #overlay" vr-mode-ui="enterVRButton: #myEnterVRButton; enterARButton: #myEnterARButton">
+		<a-assets timeout="30000">
+			<video id="ca-video" muted preload loop playsinline src="video.webm" response-type="arraybuffer"></video>
+			<a-asset-item id="reticle" src="reticle.gltf" response-type="arraybuffer"></a-asset-item>
+		</a-assets>
+
+		<a-camera position="0 10 10" track-camera></a-camera>
+		
+		<a-entity id="cavideo" entity look-at="[track-camera]">
+			<a- material="shader: transparent-video; src: #ca-video" geometry="primitive: plane" scale="15 10 1" position="0 0 0">
+			</a-entity>
+		</a-entity>
+	    <a-entity gltf-model="#reticle" scale="0.8 0.8 0.8" ar-hit-test></a-entity>
+		<a-entity add-button="element: #add-ar"></a-entity>
+    </a-scene>
+	<a id="myEnterVRButton" href="#"></a>
+	<button id="myEnterARButton" style="position: absolute; left: 0; top: 0; min-width: 150px; min-height: 50px">START</button>
+  </body>
+  <script>
+		window.addEventListener('click', function () {
+		  var preload = document.querySelector('#ca-video');
+		  preload.play();
+		});
+	</script>
+</html>
